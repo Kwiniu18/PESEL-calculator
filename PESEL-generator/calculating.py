@@ -211,3 +211,54 @@ class Control:
         if control_value == 10:
             control_value = 0
         return control_value
+
+class Date:
+    def __init__(self, pesel):
+        self.pesel = str(pesel)
+        pass
+    def date_test(self, pesel):
+        user_birthday = pesel[4:6]
+        user_month = pesel[2:4]
+        user_year = pesel[0:2]
+        date = 0
+        # 04260402376
+
+        if int(user_birthday) > 31 and int(user_birthday) < 0:
+            print("not valid day value")
+            if int(user_month) > 12:
+                print("not valid month value")
+                return date + 2
+        else:
+            return date + 1
+
+class Gender:
+    def __init__(self, gender):
+        self.gender = str(gender)
+
+    def gender_value(self, gender):
+        ordinal_number = random.randint(0, 999)
+
+        man_numbers = [1, 3, 5, 7, 9]
+        woman_numbers = [0, 2, 4, 6, 8]
+        random_gender_value = random.randint(0, 4)
+
+        if gender == "female":
+            gender_number = woman_numbers[random_gender_value]
+            return 1
+        if gender == "male":
+            gender_number = man_numbers[random_gender_value]
+            return 1
+        if gender not in ["male", "female"]:
+            return 2
+
+class GenderDec:
+    def __init__(self, user_gender):
+        self.user_gender = user_gender
+
+    def gender_dec(self, user_gender):
+        if int(user_gender) % 2 == 0 or int(user_gender) == 0:
+            return 1
+
+        else:
+            print("Gender : Male")
+            return 1
