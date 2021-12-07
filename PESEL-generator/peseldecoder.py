@@ -1,4 +1,3 @@
-
 class PeselLen:
     def __init__(self, pesel):
         self.pesel = pesel
@@ -80,10 +79,9 @@ def pesel_decoder(pesel):
     user_year = pesel[0:2]
     # 04260402376
 
-
     control_number = ControlValue(pesel)
     control_number.control_value()
-    
+
     if control_number.control_value() != int(pesel[10]):
         print("liczba kontrolna sie nie zgadza!")
         quit()
