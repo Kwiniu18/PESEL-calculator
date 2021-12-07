@@ -1,48 +1,52 @@
 from calculating import Century
 from calculating import Control
-from calculating import Date
+from peseldecoder import Date
 from calculating import Gender
-from calculating import GenderDec
+from peseldecoder import GenderDec
+from peseldecoder import ControlValue
+from peseldecoder import PeselLen
 import pytest
 
+pesel = "04260402376"
+year = 2004
+month = 10
+century = 30
+gender = "male"
 
 ####TESTS FOR GENERATOR
 def test_century():
-    result = Century(1)
-    century = 20
-    assert result.century_results(2050) == century
+    result = Century(year, month)
+    assert result.century_pick() == century
+
 
 def test_control():
-    result = Control("")
-    assert result.control_index("04260402376") == 6
+    result = Control(pesel)
+    assert result.control_value() == 6
 
-def test_pesel_len():
-    pesel = "27926371917"
-    assert len(pesel) == 11
-
-def test_pesel_date():
-    result = Date("")
-    assert result.date_test("04260402376") == 1
 
 def test_gender_value():
-    result = Gender("")
-    assert result.gender_value("male") == 1
-    assert result.gender_value("female") == 1
+    result = Gender(gender)
+    man_numbers = [1, 3, 5, 7, 9]
+    woman_numbers = [0, 2, 4, 6, 8]
+    assert result.gender_value() in man_numbers
 
+
+# DECODER
 def test_gender_dec():
     result = GenderDec(4)
     assert result.gender_dec(4) == 1
 
 
+def test_pesel_date():
+    result = Date("")
+    assert result.date_test(pesel) == 1
 
 
+def test_cotrol_dec():
+    result = ControlValue(pesel)
+    assert result.control_value() == 6
 
 
-
-
-
-
-
-
-
-
+def test_pesel_len():
+    result = PeselLen(pesel)
+    assert result.pesel_len(pesel) == 0
