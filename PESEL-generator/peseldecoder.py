@@ -68,9 +68,9 @@ class GenderDec:
 
 def pesel_decoder(pesel):
     if not pesel.isdigit():
-        quit("Pesel może zawierać tylko cyfry")
+        quit("only numbers!")
     if len(pesel) != 11:
-        quit("nie poprawna ilosc znakow!")
+        quit("not the correct number of characters")
 
     user_gender = pesel[9]
     user_birthday = pesel[4:6]
@@ -83,7 +83,7 @@ def pesel_decoder(pesel):
     control_number.control_value()
 
     if control_number.control_value() != int(pesel[10]):
-        print("liczba kontrolna sie nie zgadza!")
+        print("the control number did not match")
         quit()
 
     if int(user_month) > 12 and int(user_month) < 41:
