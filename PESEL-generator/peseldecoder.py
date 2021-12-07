@@ -1,3 +1,4 @@
+
 class PeselLen:
     def __init__(self, pesel):
         self.pesel = pesel
@@ -67,7 +68,6 @@ class GenderDec:
 
 
 def pesel_decoder(pesel):
-
     if not pesel.isdigit():
         quit("Pesel może zawierać tylko cyfry")
     if len(pesel) != 11:
@@ -75,18 +75,15 @@ def pesel_decoder(pesel):
 
     user_gender = pesel[9]
     user_birthday = pesel[4:6]
-    user_month = pesel[3:4]
+    user_month = pesel[2:4]
     pesel_month = int(user_month)
     user_year = pesel[0:2]
     # 04260402376
-    century = 0
 
-    if int(user_month) > 12:
-        print("not valid month value")
-        quit()
 
     control_number = ControlValue(pesel)
     control_number.control_value()
+    
     if control_number.control_value() != int(pesel[10]):
         print("liczba kontrolna sie nie zgadza!")
         quit()
@@ -106,6 +103,13 @@ def pesel_decoder(pesel):
     if int(user_month) > 0 and int(user_month) < 13:
         pesel_month = int(user_month)
         century = 19
+
+    date = Date(pesel)
+    date.date_test(pesel)
+
+    if int(pesel_month) > 12:
+        print("not valid month value")
+        quit()
 
     offical_birthyear = str(century) + str(user_year)
 
