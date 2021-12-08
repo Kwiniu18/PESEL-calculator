@@ -122,5 +122,4 @@ def pesel_decoder(pesel):
         gender_pick = GenderDec(user_gender)
         gender_pick.gender_dec(user_gender)
         print("\n")
-    else:
-        raise ValueError("Pesek nr is too short!")
+
