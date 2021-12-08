@@ -68,9 +68,9 @@ class GenderDec:
 
 def pesel_decoder(pesel):
     if not pesel.isdigit():
-        quit("only numbers!")
+        raise ValueError("only numbers!")
     if len(pesel) != 11:
-        quit("not the correct number of characters")
+        raise ValueError("not the correct number of characters")
 
     user_gender = pesel[9]
     user_birthday = pesel[4:6]
@@ -83,8 +83,7 @@ def pesel_decoder(pesel):
     control_number.control_value()
 
     if control_number.control_value() != int(pesel[10]):
-        print("the control number did not match")
-        quit()
+        raise ValueError("Control number Wrong!")
 
     if int(user_month) > 12 and int(user_month) < 41:
         pesel_month = int(user_month) - 20
@@ -106,8 +105,7 @@ def pesel_decoder(pesel):
     date.date_test(pesel)
 
     if int(pesel_month) > 12:
-        print("not valid month value")
-        quit()
+        raise ValueError("Wrong month value!")
 
     offical_birthyear = str(century) + str(user_year)
 
@@ -125,4 +123,4 @@ def pesel_decoder(pesel):
         gender_pick.gender_dec(user_gender)
         print("\n")
     else:
-        print("pesel too short!")
+        raise ValueError("Pesek nr is too short!")
