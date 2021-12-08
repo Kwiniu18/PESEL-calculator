@@ -6,10 +6,9 @@ class Control:
         self.pesel = str(pesel)
 
     def control_value(self):
-        index = 0
         result = 0
 
-        for x in self.pesel:
+        for index, x in enumerate(self.pesel):
             if index == 0 or index == 4 or index == 8:
                 result += (int(x)) * 1 % 10
             if index == 1 or index == 5 or index == 9:
@@ -18,7 +17,6 @@ class Control:
                 result += (int(x)) * 7 % 10
             if index == 3 or index == 7:
                 result += (int(x)) * 9 % 10
-            index += 1
         result = result % 10
         control_value = 10 - int(result)
 
