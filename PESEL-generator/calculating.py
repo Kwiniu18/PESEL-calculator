@@ -100,6 +100,7 @@ class MonthCheck:
                 raise ValueError("Wrong month Value!")
         else:
             return 1
+            pass
 
 
 def pesel_gen(day, month, year, gender):

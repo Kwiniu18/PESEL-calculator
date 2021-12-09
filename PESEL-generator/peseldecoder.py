@@ -30,6 +30,8 @@ class ControlValue:
 
         result = result % 10
         control_nr = 10 - int(result)
+        if control_nr == 10:
+            control_nr = 0
         return control_nr
 
 
@@ -76,9 +78,6 @@ class MonthDec:
 
     def month_checker(self):
 
-        if int(self.pesel_month) > 31 or int(self.pesel_month) < 1:
-            raise ValueError("Wrong Month Value")
-
         if int(self.pesel_month) == 2:
 
             if int(self.offical_birthyear) % 4 == 0 and (
@@ -103,13 +102,15 @@ def pesel_decoder(pesel):
     if len(pesel) != 11:
         raise ValueError("not the correct number of characters")
 
+
     user_gender = pesel[9]
     user_birthday = pesel[4:6]
     user_month = pesel[2:4]
     pesel_month = int(user_month)
     user_year = pesel[0:2]
 
-    # 04260402376
+    if int(pesel_month) > 31 or int(pesel_month) < 1:
+        raise ValueError("Wrong Month Value")
 
     control_number = ControlValue(pesel)
     control_number.control_value()
