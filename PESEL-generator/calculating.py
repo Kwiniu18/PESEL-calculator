@@ -1,4 +1,5 @@
 import random
+from datetime import date
 
 
 class Control:
@@ -34,7 +35,11 @@ class Century:
         self.year = year
         self.month = month
 
+
     def century_pick(self):
+
+        if self.year < 1800 or self.year > 2299:
+            raise ValueError("Wrong Year Value!")
 
         if self.year >= 1800 and self.year <= 1899:
             self.month = self.month + 80
@@ -71,23 +76,55 @@ class Gender:
             return gender_number
 
 
+class MonthCheck:
+    def __init__(self, year, month, day):
+        self.month = month
+        self.year = year
+        self.day = day
+
+    def months_check(self):
+
+        if self.month > 31 or self.month < 1:
+            raise ValueError("Wrong Month Value")
+
+        if self.month == 2:
+            if self.year % 4 == 0 and (self.year % 100 != 0 or self.year % 400 == 0):
+                if self.day > 29:
+                    raise ValueError("Wrong Month Value!")
+            else:
+                if self.day > 28:
+                    raise ValueError("Wrong Month Value!")
+
+        if self.month in [4, 6, 9, 11]:
+            if self.day > 30:
+                raise ValueError("Wrong month Value!")
+        else:
+            return 1
+
+
 def pesel_gen(day, month, year, gender):
 
     pesel_year = year % 100
     pesel_day = day
+
     century = Century(year, month)
-    month = century.century_pick()
+    century_month = century.century_pick()
     gender_pick = Gender(gender)
+
+    month_check = MonthCheck(year, month, day)
+    month_error = month_check.months_check()
+
     gender_number = gender_pick.gender_value()
+    ordinal_nr = random.randint(0, 999)
 
     pesel = str(
         (
             "%02d%02d%02d%03d%01d"
             % (
                 pesel_year,
-                month,
+                century_month,
                 pesel_day,
-                random.randint(0, 999),
+                ordinal_nr,
                 gender_number,
             )
         )

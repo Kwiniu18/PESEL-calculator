@@ -1,3 +1,7 @@
+from datetime import date
+today = date.today()
+
+
 class PeselLen:
     def __init__(self, pesel):
         self.pesel = pesel
@@ -41,7 +45,7 @@ class Date:
         date = 0
         # 04260402376
 
-        if int(user_birthday) > 31 and int(user_birthday) < 0:
+        if int(user_birthday) > 31 or int(user_birthday) < 0:
             print("not valid day value")
             if int(user_month) > 12:
                 print("not valid month value")
@@ -63,6 +67,35 @@ class GenderDec:
             print("Gender : Male")
             return 1
 
+class MonthDec:
+    def __init__(self, pesel_month, offical_birthyear, user_birthday):
+
+        self.pesel_month = pesel_month
+        self.offical_birthyear = offical_birthyear
+        self.user_birthday = user_birthday
+
+    def month_checker(self):
+
+        if int(self.pesel_month) > 31 or int(self.pesel_month) < 1:
+            raise ValueError("Wrong Month Value")
+
+        if int(self.pesel_month) == 2:
+
+            if int(self.offical_birthyear) % 4 == 0 and (
+                    int(self.offical_birthyear) % 100 != 0 or int(self.offical_birthyear) % 400 == 0):
+                if int(self.user_birthday) > 29:
+                    raise ValueError("Wrong Month Value!")
+            else:
+                if int(self.user_birthday) > 28:
+                    raise ValueError("Wrong Month Value!")
+
+        if int(self.pesel_month) in [4, 6, 9, 11]:
+            if int(self.user_birthday) > 30:
+                raise ValueError("Wrong month Value!")
+        else:
+            return 1
+            pass
+
 
 def pesel_decoder(pesel):
     if not pesel.isdigit():
@@ -75,6 +108,7 @@ def pesel_decoder(pesel):
     user_month = pesel[2:4]
     pesel_month = int(user_month)
     user_year = pesel[0:2]
+
     # 04260402376
 
     control_number = ControlValue(pesel)
@@ -105,14 +139,28 @@ def pesel_decoder(pesel):
     if int(pesel_month) > 12:
         raise ValueError("Wrong month value!")
 
+
+
     offical_birthyear = str(century) + str(user_year)
+
+    years = today.year - int(offical_birthyear)
+
+
+
+    if today.month < int(pesel_month) or today.month == int(pesel_month):
+        if today.day < int(user_birthday):
+            years = years - 1
+
+    month_check = MonthDec(offical_birthyear, user_birthday, pesel_month)
+    month_error = month_check.month_checker()
+
 
     if len(pesel) == 11:
         print("\n")
         print("Birthday: %02d" % (int(user_birthday)))
         print("Month: %02d" % int(pesel_month))
         print("Year: ", str(offical_birthyear))
-        print("Years old: ", 2021 - int(offical_birthyear))
+        print("Years old: ", years)
         print(
             "Full date: %02d / %02d / %04s"
             % (int(user_birthday), int(pesel_month), str(offical_birthyear))
