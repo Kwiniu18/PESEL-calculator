@@ -9,7 +9,7 @@ class PeselLen:
     def pesel_len(self, pesel):
         if len(pesel) == 11:
             print("Len ERROR!")
-            return 0
+            return True
 
     #calculating control value
 class ControlValue:
@@ -45,15 +45,14 @@ class Date:
         user_birthday = pesel[4:6]
         user_month = pesel[2:4]
         user_year = pesel[0:2]
-        date = 0
 
         if int(user_birthday) > 31 or int(user_birthday) < 0:
             print("not valid day value")
             if int(user_month) > 12:
                 print("not valid month value")
-                return date + 2
+                return False
         else:
-            return date + 1
+            return True
 
     #gender validation
 class GenderDec:
@@ -63,11 +62,11 @@ class GenderDec:
     def gender_dec(self, user_gender):
         if int(user_gender) % 2 == 0 or int(user_gender) == 0:
             print("Gender : Female")
-            return 1
+            return True
 
         else:
             print("Gender : Male")
-            return 1
+            return True
 
     #Month Validation
 class MonthDec:
@@ -93,8 +92,7 @@ class MonthDec:
             if int(self.user_birthday) > 30:
                 raise ValueError("Wrong month Value!")
         else:
-            return 1
-            pass
+            return True
 
 
 def pesel_decoder(pesel):
@@ -140,7 +138,7 @@ def pesel_decoder(pesel):
 
     #day and month validation
 
-    if int(pesel_month) > 12:
+    if int(pesel_month) > 12 or int(pesel_month) < 1:
         raise ValueError("Wrong month value!")
 
     if int(user_birthday) > 31 or int(user_birthday) < 1:

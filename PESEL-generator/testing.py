@@ -31,28 +31,24 @@ def test_male_gender_value():
     assert result.gender_value() in man_numbers
 
 def test_female_gender_value():
-    result = Gender(gender)
+    result = Gender("female")
     woman_numbers = [0, 2, 4, 6, 8]
     assert result.gender_value() in woman_numbers
 
 def test_leap_year():
     result = MonthCheck(2004, 2, 29)
-    assert result.months_check() == 1
-
-def test_click_generate():
-    result = generate()
-    assert generate == 1
+    assert result.months_check()
 
 
 
 # tests for DECODER
 def test_gender_dec():
     result = GenderDec(4)
-    assert result.gender_dec(4) == 1
+    assert result.gender_dec(4)
 
 def test_pesel_date():
     result = Date("")
-    assert result.date_test(pesel) == 1
+    assert result.date_test(pesel)
 
 def test_cotrol_dec():
     result = ControlValue(pesel)
@@ -60,11 +56,11 @@ def test_cotrol_dec():
 
 def test_pesel_len():
     result = PeselLen(pesel)
-    assert result.pesel_len(pesel) == 0
+    assert result.pesel_len(pesel)
 
 def test_leap_year_dec():
     result = MonthDec(2, 2008, 29)
-    assert result.month_checker() == 1
+    assert result.month_checker()
 
 #tests for Click
 
