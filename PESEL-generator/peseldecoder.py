@@ -1,7 +1,7 @@
 from datetime import date
 today = date.today()
 
-
+    #pesel lenght validation
 class PeselLen:
     def __init__(self, pesel):
         self.pesel = pesel
@@ -11,7 +11,7 @@ class PeselLen:
             print("Len ERROR!")
             return 0
 
-
+    #calculating control value
 class ControlValue:
     def __init__(self, pesel):
         self.pesel = pesel
@@ -35,6 +35,7 @@ class ControlValue:
         return control_nr
 
 
+    #Date validation
 class Date:
     def __init__(self, pesel):
         self.pesel = str(pesel)
@@ -45,7 +46,6 @@ class Date:
         user_month = pesel[2:4]
         user_year = pesel[0:2]
         date = 0
-        # 04260402376
 
         if int(user_birthday) > 31 or int(user_birthday) < 0:
             print("not valid day value")
@@ -55,7 +55,7 @@ class Date:
         else:
             return date + 1
 
-
+    #gender validation
 class GenderDec:
     def __init__(self, user_gender):
         self.user_gender = user_gender
@@ -69,6 +69,7 @@ class GenderDec:
             print("Gender : Male")
             return 1
 
+    #Month Validation
 class MonthDec:
     def __init__(self, pesel_month, offical_birthyear, user_birthday):
 
@@ -109,11 +110,11 @@ def pesel_decoder(pesel):
     pesel_month = int(user_month)
     user_year = pesel[0:2]
 
-    if int(pesel_month) > 31 or int(pesel_month) < 1:
-        raise ValueError("Wrong Month Value")
 
     control_number = ControlValue(pesel)
     control_number.control_value()
+
+    #century validation
 
     if control_number.control_value() != int(pesel[10]):
         raise ValueError("Control number Wrong!")
@@ -137,8 +138,13 @@ def pesel_decoder(pesel):
     date = Date(pesel)
     date.date_test(pesel)
 
+    #day and month validation
+
     if int(pesel_month) > 12:
         raise ValueError("Wrong month value!")
+
+    if int(user_birthday) > 31 or int(user_birthday) < 1:
+        raise ValueError("Wrong Month Value")
 
 
 
@@ -146,14 +152,14 @@ def pesel_decoder(pesel):
 
     years = today.year - int(offical_birthyear)
 
-
-
-    if today.month < int(pesel_month) or today.month == int(pesel_month):
+    # CALCULATING USER AGE
+    if today.month >= int(pesel_month):
         if today.day < int(user_birthday):
             years = years - 1
 
+
     month_check = MonthDec(offical_birthyear, user_birthday, pesel_month)
-    month_error = month_check.month_checker()
+    month_check.month_checker()
 
 
     if len(pesel) == 11:

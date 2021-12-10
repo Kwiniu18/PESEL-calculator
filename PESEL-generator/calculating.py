@@ -1,7 +1,7 @@
 import random
 from datetime import date
 
-
+    #calculating control number
 class Control:
     def __init__(self, pesel):
         self.pesel = str(pesel)
@@ -29,7 +29,7 @@ class Control:
         print("\n")
         return control_value
 
-
+    #century validation
 class Century:
     def __init__(self, year, month):
         self.year = year
@@ -58,6 +58,7 @@ class Century:
         return self.month
 
 
+    #gender validation
 class Gender:
     def __init__(self, gender):
         self.gender = str(gender)
@@ -76,6 +77,7 @@ class Gender:
             return gender_number
 
 
+    #month validation
 class MonthCheck:
     def __init__(self, year, month, day):
         self.month = month
@@ -113,7 +115,7 @@ def pesel_gen(day, month, year, gender):
     gender_pick = Gender(gender)
 
     month_check = MonthCheck(year, month, day)
-    month_error = month_check.months_check()
+    month_check.months_check()
 
     gender_number = gender_pick.gender_value()
     ordinal_nr = random.randint(0, 999)

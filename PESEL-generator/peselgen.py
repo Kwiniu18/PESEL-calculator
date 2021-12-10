@@ -17,10 +17,12 @@ def generate(day, month, year, gender):
     pesel_gen(day, month, year, gender)
 
 
+
 @cli.command()
 @click.argument("pesel", type=str)
 def decode(pesel):
     pesel_decoder(pesel)
+    return 1
 
 
 if __name__ == "__main__":
